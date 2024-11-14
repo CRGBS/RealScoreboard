@@ -45,7 +45,7 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
             @Override
             public void run() {
                 // 每次執行時調用 this.rsa.reload()
-                this.rsa.reload();
+                rsa.reload();
             }
         }, 0L, 40L); // 0L表示立刻開始，40L表示每40個ticks（即2秒）執行一次
     }
