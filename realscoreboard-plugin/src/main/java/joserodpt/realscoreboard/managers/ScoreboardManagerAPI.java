@@ -53,7 +53,7 @@ private void startRepeatingTask() {
             // 每次執行時調用 rsa.reload()
             rsa.reload();
         }
-    }.runTaskTimer(this, 0L, 40L); // 0L 表示立刻開始，40L 每40 ticks 執行一次
+    }.runTaskTimer(rsa, 0L, 40L); // 0L 表示立刻開始，40L 每40 ticks 執行一次
 }
 
 
