@@ -19,7 +19,11 @@ import joserodpt.realscoreboard.api.config.RSBScoreboards;
 import joserodpt.realscoreboard.api.scoreboard.*;
 import joserodpt.realscoreboard.api.conditions.ConditionManager;
 import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
