@@ -21,6 +21,8 @@ import joserodpt.realscoreboard.api.conditions.ConditionManager;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,16 +45,16 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
 
 
 
-    private void startRepeatingTask() {
-        // 每2秒（40個ticks）執行一次
-        Bukkit.getScheduler().runTaskTimer(rsa, new Runnable() {
-            @Override
-            public void run() {
-                // 每次執行時調用 this.rsa.reload()
-                rsa.reload();
-            }
-        }, 0L, 40L); // 0L表示立刻開始，40L表示每40個ticks（即2秒）執行一次
-    }
+private void startRepeatingTask() {
+    // 每2秒（40個ticks）執行一次
+    new BukkitRunnable() {
+        @Override
+        public void run() {
+            // 每次執行時調用 rsa.reload()
+            rsa.reload();
+        }
+    }.runTaskTimer(this, 0L, 40L); // 0L 表示立刻開始，40L 每40 ticks 執行一次
+}
 
 
     
