@@ -70,15 +70,43 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
 
             List<String> otherWorlds = RSBScoreboards.file().getStringList(key + "Other-Worlds");
 
+
+
+
+    List<String> result = new ArrayList<>();
+    
+    // 遍歷從配置中獲得的世界列表
+    for (String worldPattern : otherWorlds) {
+        // 將 * 替換為正則表達式中的 .*
+        String regex = worldPattern.replace("*", ".*");
+        
+        // 匹配正則表達式
+        Pattern pattern = Pattern.compile(regex);
+        
+        // 遍歷所有已加載的世界，檢查是否匹配
+        for (World world : Bukkit.getWorlds()) {
+            String worldName = world.getName();
+            Matcher matcher = pattern.matcher(worldName);
+            if (matcher.matches()) {
+                // 如果匹配，將世界名稱添加到結果列表中
+                result.add(worldName);
+            }
+        }
+    }
+
+
+
+
+            
             //if config has lines, it has only one board, else, two or more
             if (RSBScoreboards.file().contains(key + "Lines")) {
                 List<String> title = RSBScoreboards.file().getStringList(key + "Title");
                 List<String> lines = RSBScoreboards.file().getStringList(key + "Lines");
 
-                this.scoreboards.put(scoreboardName, new RScoreboardSingle(scoreboardName, displayName, permission, w, otherWorlds, title, lines,
+                this.scoreboards.put(scoreboardName, new RScoreboardSingle(scoreboardName, displayName, permission, w, result, title, lines,
                         titleRefresh, titleLoopDelay, globalScoreboardRefresh, def));
             } else {
-                this.scoreboards.put(scoreboardName, new RScoreboardBoards(scoreboardName, displayName, permission, w, otherWorlds,
+                this.scoreboards.put(scoreboardName, new RScoreboardBoards(scoreboardName, displayName, permission, w, result,
                         titleRefresh, titleLoopDelay, globalScoreboardRefresh, RSBScoreboards.file().getInt(key + "Refresh.Board-Loop-Delay"), def));
             }
 
