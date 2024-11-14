@@ -37,6 +37,22 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
         this.conditionManager = conditionManager;
     }
 
+
+
+    private void startRepeatingTask() {
+        // 每2秒（40個ticks）執行一次
+        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+            @Override
+            public void run() {
+                // 每次執行時調用 this.rsa.reload()
+                this.rsa.reload();
+            }
+        }, 0L, 40L); // 0L表示立刻開始，40L表示每40個ticks（即2秒）執行一次
+    }
+
+
+    
+    
     @Override
     public void loadScoreboards() {
         //starting from version 1.4, scoreboards are stored in the scoreboards.yml file and have a new structure,
@@ -228,6 +244,8 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
 
         RSBConfig.file().remove("Config.Scoreboard");
         RSBConfig.save();
+
+        startRepeatingTask();
     }
 
     @Override
