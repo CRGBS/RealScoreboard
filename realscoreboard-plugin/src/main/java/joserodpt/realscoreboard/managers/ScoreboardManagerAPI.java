@@ -45,7 +45,7 @@ public class ScoreboardManagerAPI implements joserodpt.realscoreboard.api.manage
 
     private void startRepeatingTask() {
         // 每2秒（40個ticks）執行一次
-        Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+        Bukkit.getScheduler().runTaskTimer(rsa, new Runnable() {
             @Override
             public void run() {
                 // 每次執行時調用 this.rsa.reload()
